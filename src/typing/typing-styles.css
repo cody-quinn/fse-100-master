@@ -1,0 +1,22 @@
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #818cf8;
+    --text-color: #1f2937;
+    --bg-color: #f9fafb;
+    --correct-color: #10b981;
+    --error-color: #ef4444;
+    --border-color: #e5e7eb;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+
+
+
+}

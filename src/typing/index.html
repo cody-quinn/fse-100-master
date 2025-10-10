@@ -1,10 +1,64 @@
-<html>
-  <head>
-    <title>Old people site</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <h1>Typing</h1>
-    <script src="game.js" lang="javascript"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<head>
+  <meta charset = "UTF-8">
+  <meta name = "viewport" content = "width=device.width, initial-scale=1.0">
+  <link rel = "stylesheet" href = "typing-styles.css">
+  <title>Typing practice</title>
+</head>
+<body>
+<div class =" container">
+  <header class = "header">
+    <p class = "subtitle">Practice your speed and accuracy while typing!</p>
+  </header>
+
+    <div class = "stat-container">
+      <div class = "stat-card">
+        <div class = "stat-label">Words per Minute</div>
+        <div class = stat-value" id="wpm">0</div>
+      </div>
+
+      <div class = "stat-card">
+        <div class = "stat-label">Accuracy</div>
+        <div class = stat-value" id="accuracy">100%</div>
+      </div>
+
+      <div class = "timer"></div>
+      <div class = "text-display" id = "textDisplay"></div>
+
+      <div class = "input-section">
+        <label for="inputFiled"></label><input
+                class="input"
+                id="inputFiled"
+                placeholder="Start typing to begin..."
+                type="text"
+        />
+      </div>
+
+      <div class = "controls">
+        <button class = "button-primary">Restart test</button>
+        <button class = "button-secondary">New test</button>
+      </div>
+
+      <div class = "results" id = "resultsContent">
+        <div class = "results-contents">
+          <h2 class = "results-title">Typing test results</h2>
+          <div class = "result-stat">
+            <div class = "result-label">Words Per Minute</div>
+            <div class = "result-value" id = "finalWPM">0</div>
+          </div>
+
+          <div class = "result-stat">
+            <div class = "result-label">Accuracy</div>
+            <div class = "result-value" id = "finalAccuracy">100%</div>
+          </div>
+
+        </div>
+
+        <button class = "button-primary" onclick = "restartTest()">
+          Try again
+        </button>
+
+      </div>
+    </div>
+  </div>
+</body>
