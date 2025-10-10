@@ -1,0 +1,17 @@
+#simon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 25px;
+    width: 600px;
+    height: 600px;
+}
+
+#simon-grid > button {
+    background: blue;
+    border: solid black 1px;
+}
+
+.simon-flash {
+    background: white !important;
+}
