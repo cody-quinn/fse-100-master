@@ -1,10 +1,30 @@
-<html>
-  <head>
-    <title>Old people site</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <h1>Key Game</h1>
-    <script src="game.js" lang="javascript"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stroke Recovery Key Game</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="animated-bg"></div>
+
+<div class="game-container">
+    <h1>🧠 Stroke Recovery Key Game</h1>
+
+    <div class="status-bar">
+        <p>Level: <span id="level">1</span></p>
+        <p>Score: <span id="score">0</span></p>
+    </div>
+
+    <div id="game-area" class="game-area">
+        <div id="key" class="key" draggable="true">🔑</div>
+        <div id="keyholes" class="keyholes"></div>
+    </div>
+
+    <button id="restart">🔁 Restart Game</button>
+</div>
+
+<script src="game.js"></script>
+</body>
 </html>
