@@ -6,6 +6,7 @@ const keyholesContainer = document.getElementById("keyholes");
 const scoreDisplay = document.getElementById("score");
 const levelDisplay = document.getElementById("level");
 const restartButton = document.getElementById("restart");
+const backButton = document.getElementById("back");
 const key = document.getElementById("key");
 
 function setupLevel() {
@@ -94,5 +95,8 @@ restartButton.addEventListener("click", () => {
     setupLevel();
 });
 
-setupLevel();
+backButton.addEventListener("click", () => {
+    window.location = "/";
+})
 
+setupLevel();

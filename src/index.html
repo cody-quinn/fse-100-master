@@ -2,13 +2,32 @@
   <head>
     <title>Old people site</title>
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="preload" href="/fonts/FuturaCyrillicBold.woff" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FuturaCyrillicDemi.woff" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FuturaCyrillicHeavy.woff" as="font" type="font/woff2" crossorigin>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <ul>
-      <li><a href="/typing">Typing Test</a></li>
-      <li><a href="/simon">Simon Says</a></li>
-      <li><a href="/keys">Keys Game</a></li>
-    </ul>
+    <div class="fms-main-menu-container">
+      <div class="fms-main-menu">
+        <div class="fms-heading">
+          <h1><span>F.M.S.</span></h1>
+          <h2><span>Fun Motor Skills</span></h2>
+        </div>
+        <div class="fms-gamelist">
+          <div class="fms-game">
+            <a href="/typing">Typing Test</a>
+            <button id="typing-leaderboard">&#x1F3C6;</button>
+          </div>
+          <div class="fms-game">
+            <a href="/simon">Simon Says</a>
+            <button id="simon-leaderboard">&#x1F3C6;</button>
+          </div>
+          <div class="fms-game">
+            <a href="/keys">Keys Game</a>
+            <button id="keys-leaderboard">&#x1F3C6;</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
