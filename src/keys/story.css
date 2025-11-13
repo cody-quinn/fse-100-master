@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+.dawn-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #59e0ff 0%,
+    #b3ffe3 20%,
+    #ffd7a1 65%,
+    #ffb47c 100%
+  );
+  z-index: -3;
+  animation: glow 14s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.15) saturate(1.2); }
+}
+
+.floating-petals {
+  position: fixed;
+  inset: 0;
+  background-image: url('https://i.imgur.com/jL8RcXi.png');
+  background-size: contain;
+  opacity: 0.25;
+  z-index: -2;
+  animation: petals 20s infinite linear;
+}
+
+@keyframes petals {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-200px) translateX(-80px); }
+}
+
+.tree-container {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.tree-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  text-shadow: 0 0 18px rgba(255,255,255,0.7);
+}
+
+.tree-subtitle {
+  opacity: 0.9;
+  margin-bottom: 35px;
+}
+
+.tree {
+  position: relative;
+  width: 300px;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 50px;
+  height: 260px;
+  transform: translateX(-50%);
+  background: linear-gradient(#8a4b1d, #5d320f);
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.22) inset;
+}
+
+.branch {
+  position: absolute;
+  width: 6px;
+  height: 120px;
+  background: #4f2c10;
+  border-radius: 4px;
+  opacity: 0.25;
+  transform-origin: bottom center;
+  transition: 0.6s ease;
+  box-shadow: 0 0 14px rgba(255,255,255,0.15) inset;
+}
+
+#b1 { bottom: 210px; left: 50%; transform: translateX(-50%) rotate(-45deg); }
+#b2 { bottom: 190px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+#b3 { bottom: 160px; left: 50%; transform: translateX(-50%) rotate(-60deg); }
+#b4 { bottom: 140px; left: 50%; transform: translateX(-50%) rotate(60deg); }
+#b5 { bottom: 110px; left: 50%; transform: translateX(-50%) rotate(-35deg); }
+#b6 { bottom: 100px; left: 50%; transform: translateX(-50%) rotate(35deg); }
+#b7 { bottom: 70px; left: 50%; transform: translateX(-50%) rotate(-50deg); }
+#b8 { bottom: 60px; left: 50%; transform: translateX(-50%) rotate(50deg); }
+#b9 { bottom: 40px; left: 50%; transform: translateX(-50%) rotate(-30deg); }
+#b10 { bottom: 30px; left: 50%; transform: translateX(-50%) rotate(30deg); }
+
+.branch.awakened {
+  background: #ffe67a;
+  opacity: 1;
+  box-shadow: 0 0 22px #ffe67a, 0 0 38px #ffe89b;
+}
+
+.blossom {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle, #ffb7d1 0%, #ff7fb0 70%, #d82f7e 100%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.2);
+  transition: 0.6s ease;
+  box-shadow: 0 0 12px rgba(255, 134, 184, 0.65);
+}
+
+#bl1 { bottom: 260px; left: 140px; }
+#bl2 { bottom: 250px; left: 160px; }
+#bl3 { bottom: 200px; left: 120px; }
+#bl4 { bottom: 180px; left: 180px; }
+#bl5 { bottom: 150px; left: 115px; }
+#bl6 { bottom: 135px; left: 185px; }
+#bl7 { bottom: 110px; left: 100px; }
+#bl8 { bottom: 90px; left: 200px; }
+#bl9 { bottom: 70px; left: 110px; }
+#bl10 { bottom: 50px; left: 190px; }
+
+.blossom.awakened {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.growth-summary {
+  margin-top: 40px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 16px;
+  padding: 18px 25px;
+  backdrop-filter: blur(6px);
+  width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+
+.growth-summary h2 {
+  font-family: 'Orbitron';
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.summary-note {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.story-links {
+  margin-top: 28px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.story-btn {
+  background: rgba(255, 255, 255, 0.35);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 0 16px rgba(255,255,255,0.4);
+  transition: 0.25s;
+}
+
+.story-btn:hover {
+  background: rgba(255,255,255,0.55);
+  transform: translateY(-2px);
+}
