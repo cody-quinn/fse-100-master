@@ -5,18 +5,29 @@
     <link rel="stylesheet" href="/simon/styles.css" />
   </head>
   <body>
-    <h1>Simon Says</h1>
-    <div id="simon-grid">
-      <button></button>
-      <button></button>
-      <button></button>
-      <button></button>
+    <div class="simon-container">
+      <div class="simon-header">
+        <div class="simon-header-buttons">
+          <button id="exit-button">&#x1F3E0;</button>
+          <button id="leaderboard-button">&#x1F3C6;</button>
+        </div>
+        <h1>Simon Says</h1>
+      </div>
+
+      <div id="simon-grid">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+      <button id="start-button">
+        Start Game
+      </button>
+
+      <span id="simon-round"></span>
+      <span id="simon-status"></span>
     </div>
-    <button id="start-button">
-      Start Game
-    </button>
-    <span id="simon-round"></span>
-    <span id="simon-status"></span>
+
     <script src="game.js" lang="javascript"></script>
   </body>
 </html>

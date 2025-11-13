@@ -9,6 +9,12 @@ const blocks = Array.from(document.querySelectorAll("#simon-grid > button"));
 /** @type {HTMLButtonElement} */
 const startButton = document.getElementById("start-button");
 
+/** @type {HTMLButtonElement} */
+const exitButton = document.getElementById("exit-button");
+
+/** @type {HTMLButtonElement} */
+const leaderboardButton = document.getElementById("leaderboard-button");
+
 let started = false;
 let acceptingInput = false;
 
@@ -41,7 +47,7 @@ function playRound() {
 
     const block = pattern[i++];
     block.className = "simon-flash";
-    setTimeout(() => block.className = "", 500);
+    setTimeout(() => (block.className = ""), 500);
   }, 700);
 }
 
@@ -64,5 +70,9 @@ function resetGame() {
 }
 
 // Add event handlers
-blocks.forEach(item => item.onclick = blockClicked)
+blocks.forEach((item) => (item.onclick = blockClicked));
 startButton.onclick = playGame;
+
+exitButton.onclick = () => {
+  window.location = "/";
+};

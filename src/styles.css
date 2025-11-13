@@ -1,5 +1,136 @@
-body {
-  max-width: 768px;
-  margin: 0 auto;
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicBook.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 450;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicMedium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicDemi.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicHeavy.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Futura PT'), url('/fonts/FuturaCyrillicExtraBold.woff') format('woff');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.fms-main-menu-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/bliss.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fms-main-menu {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 120px 1fr;
+}
+
+.fms-heading {
+  grid-row: 2;
+}
+
+.fms-heading > * > span {
+  background: black;
+  color: white;
+}
+
+.fms-heading > h1 {
+  font-family: "Futura PT", sans-serif;
+  font-weight: 700;
+  font-size: 7rem;
+  text-align: left;
+}
+
+.fms-heading > h2 {
+  font-family: "Futura PT", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+}
+
+.fms-gamelist {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fms-game {
+  width: 100%;
+  height: 80px;
+
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  grid-gap: 12px;
+}
+
+.fms-game > a,
+.fms-game > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Futura PT", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+.fms-game > a {
+  text-decoration: none;
+}
+
+.fms-game > a:hover {
+  text-decoration: underline;
+}
+
+.fms-game > button {
+  border-style: none;
+}

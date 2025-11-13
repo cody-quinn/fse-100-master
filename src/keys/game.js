@@ -24,12 +24,14 @@ const playAgainBtn = document.getElementById("play-again");
 
 let level = 1;
 let score = 0;
-let timeLeft = 30;
-let totalTime = 0;
-let correctDrops = 0;
-let wrongTouches = 0;
-let completedInLevel = 0;
-let targetPairs = 0;
+let completed = 0;
+const totalLevels = 10;
+const keyholesContainer = document.getElementById("keyholes");
+const scoreDisplay = document.getElementById("score");
+const levelDisplay = document.getElementById("level");
+const restartButton = document.getElementById("restart");
+const backButton = document.getElementById("back");
+const key = document.getElementById("key");
 
 let rafId = null;
 let timerId = null;
@@ -381,7 +383,8 @@ startBtn.addEventListener("click", ()=>{
   hardReset();
 });
 
-restartBtn.addEventListener("click", ()=>hardReset());
-playAgainBtn.addEventListener("click", ()=>hardReset());
+backButton.addEventListener("click", () => {
+    window.location = "/";
+})
 
-
+setupLevel();
