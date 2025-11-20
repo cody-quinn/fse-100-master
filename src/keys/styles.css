@@ -1,331 +1,105 @@
-/* ----------------------------------------------------
-   🌅 MYSTICAL DAWN FOREST — GLOBAL STYLE SHEET
-   For Neon Forest Therapy Game
----------------------------------------------------- */
-
-/* Smooth fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap');
-
-/* Universal reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Body styling */
+/* Soft visible pastel background */
 body {
-  overflow: hidden;
-  height: 100vh;
-  font-family: 'Inter', sans-serif;
-  color: #ffffff;
-  background: #000;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ffe6f2, #e8f0ff, #fff4e6);
+    background-size: 300% 300%;
+    animation: backgroundMove 12s ease-in-out infinite;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* ----------------------------------------------------
-   🌅 DAWN BACKGROUND: SKY GRADIENT + LIGHT GLOW
----------------------------------------------------- */
-
-.dawn-background {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    #59e0ff 0%,
-    #b3ffe3 25%,
-    #ffd7a1 60%,
-    #ffb47c 100%
-  );
-  z-index: -3;
-  animation: dawnPulse 12s ease-in-out infinite alternate;
+@keyframes backgroundMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* Light breathing effect */
-@keyframes dawnPulse {
-  0%   { filter: brightness(1) saturate(1); }
-  100% { filter: brightness(1.15) saturate(1.2); }
+/* Header */
+.header {
+    width: 100%;
+    padding: 18px 35px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
 
-/* ----------------------------------------------------
-   🌸 FLOATING PETALS (ambient particles)
----------------------------------------------------- */
+.title { font-size: 2rem; font-weight: 700; }
 
-.floating-petals {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-  background-image: url('https://i.imgur.com/jL8RcXi.png'); /* soft petal texture */
-  background-size: contain;
-  opacity: 0.25;
-  animation: petalDrift 22s linear infinite;
+/* Stats */
+.stats {
+    display: flex;
+    gap: 25px;
+    font-size: 1.2rem;
 }
 
-@keyframes petalDrift {
-  0%   { transform: translateY(0px) translateX(0px) scale(1); }
-  100% { transform: translateY(-200px) translateX(-80px) scale(1.1); }
+/* Buttons */
+.header-buttons {
+    display: flex;
+    gap: 15px;
 }
 
-/* ----------------------------------------------------
-   🌱 START SCREEN
----------------------------------------------------- */
-
-.start-screen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 1.2s ease;
+.btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 180, 220, 0.8);
+    color: #fff;
+    font-size: 1rem;
+    backdrop-filter: blur(6px);
+    transition: 0.2s;
 }
 
-.start-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  text-shadow: 0px 0px 18px rgba(255, 255, 255, 0.7);
+.btn:hover { background: rgba(255, 150, 200, 1); }
+
+.exit { background: rgba(200, 180, 255, 0.8); }
+
+/* Game area */
+#game-area {
+    position: absolute;
+    top: 90px;
+    width: 100vw;
+    height: calc(100vh - 90px);
+    overflow: hidden;
 }
 
-.start-subtitle {
-  max-width: 600px;
-  opacity: 0.9;
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-}
-
-.start-links {
-  margin-top: 25px;
-  display: flex;
-  gap: 18px;
-}
-
-.small-link {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.9;
-  font-size: 0.95rem;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.35);
-  transition: 0.2s;
-}
-
-.small-link:hover {
-  opacity: 1;
-  background: rgba(255,255,255,0.15);
-}
-
-/* ----------------------------------------------------
-   🎮 NEON BUTTONS
----------------------------------------------------- */
-
-.neon-button {
-  background: linear-gradient(90deg, #ff9d59, #ffe36d);
-  color: #222;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-family: 'Inter';
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(255, 208, 112, 0.6);
-  transition: 0.25s;
-}
-
-.neon-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(255, 208, 112, 0.85);
-}
-
-.neon-button.large {
-  font-size: 1.3rem;
-  padding: 16px 30px;
-}
-
-.neon-button.small {
-  margin-top: 15px;
-  font-size: 1rem;
-}
-
-/* ----------------------------------------------------
-   🧠 CUE BUBBLE
----------------------------------------------------- */
-
-.cue-bubble {
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 14px 22px;
-  background: rgba(255, 255, 255, 0.35);
-  color: #1a1a1a;
-  font-weight: 700;
-  border-radius: 14px;
-  backdrop-filter: blur(6px);
-  border: 2px solid rgba(255,255,255,0.6);
-  font-size: 1.1rem;
-  box-shadow: 0px 0px 14px rgba(255,255,255,0.7);
-  z-index: 999;
-  transition: 0.25s;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* ----------------------------------------------------
-   🧭 HUD (top information bar)
----------------------------------------------------- */
-
-.hud {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 14px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(255,255,255,0.4);
-  z-index: 500;
-}
-
-.hud-item {
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.35);
-  border-radius: 12px;
-  font-size: 0.95rem;
-  color: #222;
-  font-weight: 600;
-}
-
-.hud-link {
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 10px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-}
-
-.hud-link:hover {
-  background: rgba(255,255,255,0.45);
-}
-
-/* ----------------------------------------------------
-   🎮 GAME AREA
----------------------------------------------------- */
-
-.game-container {
-  margin-top: 120px;
-  width: 100%;
-  text-align: center;
-}
-
-.game-title {
-  font-family: 'Orbitron';
-  font-size: 2.2rem;
-  color: #fff;
-  text-shadow: 0 0 15px rgba(255,255,255,0.6);
-}
-
-.subtitle {
-  margin-bottom: 18px;
-  opacity: 0.9;
-}
-
-.game-area {
-  position: relative;
-  margin: 0 auto;
-  margin-top: 15px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.28);
-  backdrop-filter: blur(8px);
-  width: 88vw;
-  height: 60vh;
-  border: 2px solid rgba(255,255,255,0.55);
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(255,255,255,0.5) inset;
-}
-
-/* Keys and locks */
+/* Glossy objects */
 .key, .lock {
-  position: absolute;
-  font-size: 44px;
-  user-select: none;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.8));
-  transition: transform 0.15s;
+    position: absolute;
+    font-size: 3.2rem;
+    cursor: grab;
+    padding: 8px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.2));
+    backdrop-filter: blur(5px);
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.15),
+        inset 0 2px 2px rgba(255,255,255,0.7);
+    transition: transform 0.25s ease-out;
 }
 
-.key:active {
-  transform: scale(1.1);
+/* DRIFTING — not rocking */
+.lock.drift {
+    animation: driftMotion 18s linear infinite;
 }
 
-/* Wrong flash */
-.hit {
-  animation: wrongFlash 0.25s ease;
+@keyframes driftMotion {
+    0%   { transform: translate(0vw, 0vh); }
+    25%  { transform: translate(10vw, 4vh); }
+    50%  { transform: translate(-8vw, 6vh); }
+    75%  { transform: translate(6vw, -4vh); }
+    100% { transform: translate(0vw, 0vh); }
 }
 
-@keyframes wrongFlash {
-  0% { transform: scale(1.1); filter: drop-shadow(0 0 22px red); }
-  100% { transform: scale(1.0); filter: drop-shadow(0 0 12px white); }
-}
-
-/* Correct unlock pop */
-.correct-pop {
-  animation: pop 0.22s ease;
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  60% { transform: scale(1.26); }
-  100% { transform: scale(1); }
-}
-
-/* ----------------------------------------------------
-   🌟 END SCREEN
----------------------------------------------------- */
-
-.end-screen {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(6px);
-  background: rgba(0,0,0,0.55);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  text-align: center;
-}
-
-.end-title {
-  font-family: 'Orbitron';
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-  text-shadow: 0 0 16px rgba(255,255,255,0.75);
-}
-
-.metric {
-  margin: 6px 0;
-  font-size: 1.1rem;
-}
-
-.end-actions {
-  margin-top: 15px;
-  display: flex;
-  gap: 14px;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.match {
+    transform: scale(1.35);
+    opacity: 0.4;
 }
 

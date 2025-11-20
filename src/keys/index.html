@@ -1,81 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Neon Forest Therapy Game</title>
-    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Gloss Key & Lock Therapy</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- 🌅 Dawn Forest Background -->
-<div class="dawn-background"></div>
-<div class="floating-petals"></div>
+<div class="header">
+    <div class="title">🔐 Key & Lock Therapy</div>
 
-<!-- 🌱 Calm Therapy Start Screen -->
-<div id="start-screen" class="start-screen">
-    <h1 class="start-title">🌅 Welcome to Neon Forest Therapy</h1>
-    <p class="start-subtitle">A gentle focus and movement session designed to support recovery.</p>
-    <button id="start-btn" class="neon-button large">Begin Session</button>
-
-    <div class="start-links">
-        <a href="story.html" class="small-link">🌱 View The Tree of Light</a>
-        <a href="progress.html" class="small-link">📊 View Your Progress</a>
+    <div class="stats">
+        <span id="level">Level: 1</span>
+        <span id="score">Score: 0</span>
+        <span id="time">Time: 0s</span>
+        <span id="accuracy">Accuracy: 100%</span>
     </div>
 
-    <div id="game-area" class="game-area">
-        <div id="key" class="key" draggable="true">🔑</div>
-        <div id="keyholes" class="keyholes"></div>
+    <div class="header-buttons">
+        <button class="btn" id="restart">🔄 Restart</button>
+        <a href="../index.html" class="btn exit">⬅ Exit</a>
     </div>
-
-    <button id="back" style="margin-right: 20px;">🔙 Exit Game</button>
-    <button id="restart">🔁 Restart Game</button>
 </div>
 
-<!-- 🧠 Dual-task cue bubble (audio + visual) -->
-<div id="cue-bubble" class="cue-bubble hidden">Cue will appear here</div>
-
-<!-- 🌿 In-Game HUD -->
-<header id="hud" class="hud hidden">
-    <div class="hud-item">⚡ Level: <span id="level">1</span></div>
-    <div class="hud-item">⏱️ Time: <span id="timer">30</span>s</div>
-    <div class="hud-item">🎯 Accuracy: <span id="accuracy">100%</span></div>
-    <div class="hud-item">💎 Score: <span id="score">0</span></div>
-    <a class="hud-link" href="story.html">🌳 Tree</a>
-    <a class="hud-link" href="progress.html">📊 Progress</a>
-</header>
-
-<!-- 🎮 Main Gameplay Container -->
-<main class="game-container hidden" id="game-container">
-    <h1 class="game-title">Neon Forest Therapy</h1>
-    <p class="subtitle">Match keys and locks based on the cue above. Stay calm and move gently.</p>
-
-    <div id="game-area" class="game-area"></div>
-
-    <button id="restart" class="neon-button small">Restart Session</button>
-</main>
-
-<!-- 🌳 Story Transition Button -->
-<div id="next-story-btn" class="story-btn hidden">
-    <a href="story.html" class="neon-button">✨ View Tree Growth</a>
-</div>
-
-<!-- 🏆 End of Session Screen -->
-<section id="end-screen" class="end-screen hidden">
-    <h2 class="end-title">🌟 Session Complete</h2>
-
-    <p class="metric">Total Score: <span id="final-score"></span></p>
-    <p class="metric">Levels Completed: <span id="final-levels"></span></p>
-    <p class="metric">Accuracy: <span id="final-acc"></span></p>
-    <p class="metric">Total Time: <span id="final-time"></span>s</p>
-
-    <div class="end-actions">
-        <button id="play-again" class="neon-button">Start New Session</button>
-        <a class="neon-button secondary" href="story.html">🌳 View Tree</a>
-        <a class="neon-button secondary" href="progress.html">📊 Progress</a>
-    </div>
-</section>
+<div id="game-area"></div>
 
 <script src="game.js"></script>
 </body>
