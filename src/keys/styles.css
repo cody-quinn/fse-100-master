@@ -1,105 +1,77 @@
-/* Soft visible pastel background */
 body {
     margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #ffe6f2, #e8f0ff, #fff4e6);
-    background-size: 300% 300%;
-    animation: backgroundMove 12s ease-in-out infinite;
-    height: 100vh;
     overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: url("bg.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
-@keyframes backgroundMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Header */
+/* HEADER */
 .header {
-    width: 100%;
-    padding: 18px 35px;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     position: fixed;
     top: 0;
-    z-index: 10;
-}
-
-.title { font-size: 2rem; font-weight: 700; }
-
-/* Stats */
-.stats {
-    display: flex;
-    gap: 25px;
-    font-size: 1.2rem;
-}
-
-/* Buttons */
-.header-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.btn {
-    padding: 10px 20px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    background: rgba(255, 180, 220, 0.8);
-    color: #fff;
-    font-size: 1rem;
+    width: 100%;
+    background: rgba(20, 20, 20, 0.45);
     backdrop-filter: blur(6px);
-    transition: 0.2s;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
 }
 
-.btn:hover { background: rgba(255, 150, 200, 1); }
+.header-buttons .btn {
+    background: #ffb3d6;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
 
-.exit { background: rgba(200, 180, 255, 0.8); }
-
-/* Game area */
+/* GAME AREA */
 #game-area {
     position: absolute;
-    top: 90px;
+    top: 80px;
+    left: 0;
     width: 100vw;
-    height: calc(100vh - 90px);
-    overflow: hidden;
+    height: calc(100vh - 80px);
 }
 
-/* Glossy objects */
+/* KEY & LOCK STYLES */
 .key, .lock {
     position: absolute;
-    font-size: 3.2rem;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
     cursor: grab;
-    padding: 8px;
-    border-radius: 22px;
-    background: linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.2));
-    backdrop-filter: blur(5px);
-    box-shadow:
-        0 8px 22px rgba(0,0,0,0.15),
-        inset 0 2px 2px rgba(255,255,255,0.7);
-    transition: transform 0.25s ease-out;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    transition: transform 0.3s ease;
 }
 
-/* DRIFTING — not rocking */
-.lock.drift {
-    animation: driftMotion 18s linear infinite;
+/* COLOR CLASSES (neon) */
+.neon-pink { background: #ff009d; }
+.neon-blue { background: #00c3ff; }
+.neon-green { background: #00ff85; }
+.neon-yellow { background: #ffe100; }
+
+.lock {
+    animation: none !important;
 }
 
-@keyframes driftMotion {
-    0%   { transform: translate(0vw, 0vh); }
-    25%  { transform: translate(10vw, 4vh); }
-    50%  { transform: translate(-8vw, 6vh); }
-    75%  { transform: translate(6vw, -4vh); }
-    100% { transform: translate(0vw, 0vh); }
+
+/* SPARKLE */
+.sparkle {
+    animation: sparkle 0.4s ease-out forwards;
 }
 
-.match {
-    transform: scale(1.35);
-    opacity: 0.4;
+@keyframes sparkle {
+    0% { transform: scale(1); box-shadow: 0 0 25px white; }
+    100% { transform: scale(0); opacity: 0; }
 }
-

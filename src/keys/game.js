@@ -8,19 +8,19 @@ let timerInterval;
 let keys = [];
 let locks = [];
 
+const neonColors = ["neon-pink", "neon-blue", "neon-green", "neon-yellow"];
 const gameArea = document.getElementById("game-area");
 
-/* UI Update */
+/* UPDATE TEXT */
 function updateStats() {
     document.getElementById("level").textContent = `Level: ${level}`;
     document.getElementById("score").textContent = `Score: ${score}`;
     document.getElementById("time").textContent = `Time: ${time}s`;
-    const accuracy =
-        total === 0 ? 100 : Math.round((correct / total) * 100);
+    const accuracy = total === 0 ? 100 : Math.round((correct / total) * 100);
     document.getElementById("accuracy").textContent = `Accuracy: ${accuracy}%`;
 }
 
-/* Timer */
+/* TIMER */
 function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -29,75 +29,78 @@ function startTimer() {
     }, 1000);
 }
 
-/* Clear */
+/* CLEAR */
 function clearGameArea() {
     keys = [];
     locks = [];
     gameArea.innerHTML = "";
 }
 
-/* Random spawn */
-function randomPos() {
+/* RANDOM PIXEL POSITION INSIDE GAME-AREA */
+function randomPixelPos() {
+    const area = gameArea.getBoundingClientRect();
     return {
-        x: Math.random() * 80 + 5,
-        y: Math.random() * 70 + 10
+        x: Math.random() * (area.width - 100),
+        y: Math.random() * (area.height - 100)
     };
 }
 
-/* Color filter map */
-const filters = {
-    red: "hue-rotate(0deg)",
-    blue: "hue-rotate(200deg)",
-    green: "hue-rotate(120deg)",
-    yellow: "hue-rotate(60deg)",
-    purple: "hue-rotate(280deg)",
-    orange: "hue-rotate(30deg)",
-    pink: "hue-rotate(320deg)",
-    cyan: "hue-rotate(160deg)"
-};
+/* SMOOTH DRIFTING MOTION */
+function smoothDrift(el) {
+    let speed = 0.4 + Math.random() * 0.4;
+    let angle = Math.random() * Math.PI * 2;
 
-/* Spawn objects */
-/* Spawn objects */
+    function move() {
+        const area = gameArea.getBoundingClientRect();
+        const rect = el.getBoundingClientRect();
+
+        const dx = Math.cos(angle) * speed;
+        const dy = Math.sin(angle) * speed;
+
+        let newX = rect.left - area.left + dx;
+        let newY = rect.top - area.top + dy;
+
+        const size = 65; // element size
+
+        if (newX < 0 || newX > area.width - size) {
+            angle = Math.PI - angle;
+        }
+        if (newY < 0 || newY > area.height - size) {
+            angle = -angle;
+        }
+
+        el.style.left = Math.max(0, Math.min(newX, area.width - size)) + "px";
+        el.style.top = Math.max(0, Math.min(newY, area.height - size)) + "px";
+
+        requestAnimationFrame(move);
+    }
+
+    move();
+}
+
+/* SPAWN OBJECTS */
 function spawnObjects() {
-    const numPairs = Math.min(3 + level, 8);
-    const colorList = ["red","blue","green","yellow","purple","orange","pink","cyan"];
+    const numPairs = Math.min(3 + level, 6);
 
     for (let i = 0; i < numPairs; i++) {
-        const color = colorList[i];
+        let colorClass = neonColors[i % neonColors.length];
 
         const key = document.createElement("div");
-        key.classList.add("key");
-        key.dataset.color = color;
-        key.innerHTML = "🔑";
+        key.classList.add("key", colorClass);
+        key.textContent = "🗝️";
 
         const lock = document.createElement("div");
-        lock.classList.add("lock", "drift");
-        lock.dataset.color = color;
-        lock.innerHTML = "🔒";
+        lock.classList.add("lock", colorClass);
+        lock.textContent = "🔒";
 
-        /* Color filters */
-        const filters = {
-            red: "hue-rotate(0deg)",
-            blue: "hue-rotate(200deg)",
-            green: "hue-rotate(120deg)",
-            yellow: "hue-rotate(60deg)",
-            purple: "hue-rotate(280deg)",
-            orange: "hue-rotate(30deg)",
-            pink: "hue-rotate(320deg)",
-            cyan: "hue-rotate(160deg)"
-        };
+        const kp = randomPixelPos();
+        const lp = randomPixelPos();
 
-        key.style.filter = filters[color];
-        lock.style.filter = filters[color];
+        key.style.left = kp.x + "px";
+        key.style.top = kp.y + "px";
 
-        const kp = randomPos();
-        const lp = randomPos();
-
-        key.style.left = kp.x + "vw";
-        key.style.top = kp.y + "vh";
-
-        lock.style.left = lp.x + "vw";
-        lock.style.top = lp.y + "vh";
+        lock.style.left = lp.x + "px";
+        lock.style.top = lp.y + "px";
 
         gameArea.appendChild(key);
         gameArea.appendChild(lock);
@@ -106,63 +109,78 @@ function spawnObjects() {
         locks.push(lock);
 
         enableDrag(key);
+        smoothDrift(lock);
     }
 }
 
-
-/* Drag */
+/* DRAGGING */
 function enableDrag(key) {
     let offsetX, offsetY;
 
     key.onmousedown = (e) => {
         offsetX = e.offsetX;
         offsetY = e.offsetY;
+        key.style.cursor = "grabbing";
 
         document.onmousemove = (move) => {
-            key.style.left = move.pageX - offsetX + "px";
-            key.style.top  = move.pageY - offsetY + "px";
+            const area = gameArea.getBoundingClientRect();
+            let newX = move.pageX - area.left - offsetX;
+            let newY = move.pageY - area.top - offsetY;
+
+            newX = Math.max(0, Math.min(newX, area.width - 65));
+            newY = Math.max(0, Math.min(newY, area.height - 65));
+
+            key.style.left = newX + "px";
+            key.style.top = newY + "px";
+
             checkMatch(key);
         };
 
         document.onmouseup = () => {
             document.onmousemove = null;
             document.onmouseup = null;
+            key.style.cursor = "grab";
         };
     };
 }
 
-/* Collision + match logic */
+/* MATCHING */
 function checkMatch(key) {
     locks.forEach(lock => {
         const kRect = key.getBoundingClientRect();
         const lRect = lock.getBoundingClientRect();
 
-        const overlap = !(
+        const overlapping = !(
             kRect.right < lRect.left ||
             kRect.left > lRect.right ||
             kRect.bottom < lRect.top ||
             kRect.top > lRect.bottom
         );
 
-        if (overlap) {
+        if (overlapping) {
             total++;
 
-            if (key.dataset.color === lock.dataset.color) {
+            if (key.classList[1] === lock.classList[1]) {
                 correct++;
                 score += 10;
 
-                key.classList.add("match");
-                lock.classList.add("match");
+                key.classList.add("sparkle");
+                lock.classList.add("sparkle");
 
                 setTimeout(() => {
                     key.remove();
                     lock.remove();
-                }, 250);
+                }, 300);
 
                 keys = keys.filter(k => k !== key);
                 locks = locks.filter(l => l !== lock);
 
-                if (keys.length === 0) nextLevel();
+                if (keys.length === 0) {
+                    level++;
+                    setTimeout(startGame, 500);
+                }
+            } else {
+                score -= 2;
             }
 
             updateStats();
@@ -170,28 +188,21 @@ function checkMatch(key) {
     });
 }
 
-/* Level progression */
-function nextLevel() {
-    level++;
+/* START GAME */
+function startGame() {
     clearGameArea();
+    updateStats();
+    startTimer();
     spawnObjects();
 }
 
-/* Restart */
 document.getElementById("restart").onclick = () => {
     level = 1;
     score = 0;
     time = 0;
     correct = 0;
     total = 0;
-
-    clearGameArea();
-    spawnObjects();
-    startTimer();
-    updateStats();
+    startGame();
 };
 
-/* Start */
-spawnObjects();
-startTimer();
-updateStats();
+startGame();
