@@ -96,6 +96,61 @@ body{
     color: var(--correct-color);
 }
 
-.text-display span.correct {
+.text-display span.error {
     color: var(--error-color);
+}
+
+.input-section {
+    margin-bottom: 2rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.125rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-field:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.input-field:disabled {
+    background-color: var(--bg-color);
+    cursor: not-allowed;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button {
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button-primary:hover {
+    opacity: 0.9;
+}
+
+.button-secondary {
+    background: var(--border-color);
+    color: var(--text-color);
+}
+
+.button-secondary:hover {
+    background: var(--border-color);
 }
