@@ -1,7 +1,13 @@
 const FLASH_DURATION = 500;
-const FLASH_INTERVAL = 200;
+const FLASH_INTERVAL = 150;
 
 const FEEDBACK_FLASH_DURATION = 150;
+
+const ROUND_INTERVAL = 300;
+
+const FLASH = "simon-flash";
+const FLASH_CORRECT = "simon-flash-correct";
+const FLASH_INCORRECT = "simon-flash-incorrect";
 
 const gridElement = document.getElementById("simon-grid");
 
@@ -16,82 +22,138 @@ const startButton = document.getElementById("start-button");
 
 /** @type {HTMLButtonElement} */
 const exitButton = document.getElementById("exit-button");
+exitButton.onclick = () => {
+  window.location = "/";
+};
 
 /** @type {HTMLButtonElement} */
 const leaderboardButton = document.getElementById("leaderboard-button");
 
-let started = false;
-let acceptingInput = false;
+class Game {
+  constructor() {
+    /** @type {"initialized" | "computer" | "player" | "lost"} */
+    this.stage = "initialized";
+    /** @type {HTMLButtonElement[]} */
+    this.pattern = [];
+    this.round = 0;
 
-let pattern = [];
-let patternLength = 3;
-
-let patternPosition = 0;
-
-function playGame(ev) {
-  if (started) {
-    return;
+    this.expandPattern(2);
   }
 
-  startButton.disabled = true;
-  started = true;
-
-  pattern = [];
-  patternLength = 3;
-
-  playRound();
-}
-
-function playRound() {
-  for (let i = pattern.length; i < patternLength; i++) {
-    const block = blocks[Math.floor(Math.random() * blocks.length)];
-    pattern.push(block);
-  }
-
-  let i = 0;
-  const interval = setInterval(() => {
-    const block = pattern[i++];
-    block.className = "simon-flash";
-    setTimeout(() => (block.className = ""), FLASH_DURATION);
-
-    if (i === pattern.length) {
-      setTimeout(() => (acceptingInput = true), FLASH_DURATION);
-      clearInterval(interval);
+  async beginGame() {
+    if (this.stage != "initialized") {
+      console.error("Attempted to start already started game");
+      return;
     }
-  }, FLASH_DURATION + FLASH_INTERVAL);
-}
 
-/**
- * @param ev {MouseEvent & {target: HTMLButtonElement}}
- */
-function blockClicked(ev) {
-  const block = ev.target;
-  if (!acceptingInput) return;
+    while (this.stage != "lost") {
+      // Prepare for next round
+      this.round++;
+      this.expandPattern();
+      this.updateLabels();
 
-  console.log(`Clicked (${patternPosition}): ${ev.target}`);
-  if (pattern[patternPosition++] === block) {
-    // The block clicked and the next block in the pattern match. The correct one was pressed
-    block.className = "simon-flash-correct";
-    setTimeout(() => (block.className = ""), FEEDBACK_FLASH_DURATION);
-  } else {
-    // The wrong block was clicked. Game should reset and a game lost screen should appear
-    //
+      await this.beginRound();
+      await sleep(ROUND_INTERVAL);
+    }
   }
 
-  if (patternPosition == patternLength) {
-    //
+  async beginRound() {
+    this.stage = "computer";
+    for (const block of this.pattern) {
+      block.className = FLASH;
+      await sleep(FLASH_DURATION);
+      block.className = "";
+      await sleep(FLASH_INTERVAL);
+    }
+
+    this.stage = "player";
+    /** @type {Promise<void>[]} */
+    let feedbackFlashes = [];
+    for (let i = 0; i < this.pattern.length; i++) {
+      const expected = this.pattern[i];
+      const block = await blockClicked();
+
+      if (expected == block) {
+        feedbackFlashes.push(
+          (async () => {
+            block.className = FLASH_CORRECT;
+            await sleep(FEEDBACK_FLASH_DURATION);
+            block.className = "";
+          })(),
+        );
+      } else {
+        feedbackFlashes.push(
+          (async () => {
+            block.className = FLASH_INCORRECT;
+            await sleep(FEEDBACK_FLASH_DURATION);
+            block.className = "";
+          })(),
+        );
+
+        this.stage = "lost";
+        break;
+      }
+    }
+
+    await Promise.all(feedbackFlashes);
+  }
+
+  /**
+   * @param {number?} desiredLength
+   */
+  expandPattern(desiredLength = null) {
+    if (desiredLength == null) {
+      desiredLength = this.pattern.length + 1;
+    }
+
+    const currentLength = this.pattern.length;
+    for (let i = currentLength; i < desiredLength; i++) {
+      const next = blocks[Math.floor(Math.random() * blocks.length)];
+      this.pattern.push(next);
+    }
+  }
+
+  updateLabels() {
+    roundElement.innerText = `Round ${this.round}`;
+    statusElement.innerText = "Playing";
+  }
+
+  // Singleton related activities
+
+  /** @type {Game?} */
+  static instance = null;
+
+  static async startNewGame() {
+    if (Game.instance != null && instance.stage != "lost") {
+      console.error(
+        "Attempted to start a new game when a existing game is already ongoing",
+      );
+      return;
+    }
+
+    Game.instance = new Game();
+    startButton.disabled = true;
+    await Game.instance.beginGame();
+    startButton.disabled = false;
   }
 }
 
-function resetGame() {
-  started = false;
-  startButton.disabled = false;
+/** @returns {Promise<HTMLButtonElement>} */
+function blockClicked() {
+  return new Promise((resolve) => {
+    /** @param ev {MouseEvent & {target: HTMLButtonElement}} */
+    function clicked(ev) {
+      resolve(ev.target);
+    }
+
+    for (const block of blocks) {
+      block.onclick = clicked;
+    }
+  });
 }
 
-// Add event handlers
-blocks.forEach((item) => (item.onclick = blockClicked));
-startButton.onclick = playGame;
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-exitButton.onclick = () => {
-  window.location = "/";
-};
+startButton.onclick = Game.startNewGame;
