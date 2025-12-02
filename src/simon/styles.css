@@ -1,3 +1,13 @@
+:root {
+  --block-green-hue: 50;
+  --block-red-hue: 100;
+  --block-yellow-hue: 360;
+  --block-blue-hue: 200;
+
+  --block-sat: 100%;
+  --block-lum: 60%;
+}
+
 .simon-container {
   max-width: 768px;
   margin: 0 auto;
@@ -31,16 +41,17 @@
 }
 
 #simon-grid > button {
-  background: blue;
   border: solid black 1px;
 }
 
-.simon-flash {
-  background: white !important;
-}
+#simon-grid > .y { background: hsl(var(--block-green-hue), var(--block-sat), var(--block-lum)); }
+#simon-grid > .g { background: hsl(var(--block-red-hue), var(--block-sat), var(--block-lum)); }
+#simon-grid > .r { background: hsl(var(--block-yellow-hue), var(--block-sat), var(--block-lum)); }
+#simon-grid > .b { background: hsl(var(--block-blue-hue), var(--block-sat), var(--block-lum)); }
 
+.simon-flash,
 .simon-flash-correct {
-  background: green !important;
+  --block-lum: 35%;
 }
 
 .simon-flash-incorrect {

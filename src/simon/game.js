@@ -60,9 +60,9 @@ class Game {
   async beginRound() {
     this.stage = "computer";
     for (const block of this.pattern) {
-      block.className = FLASH;
+      block.classList.add(FLASH);
       await sleep(FLASH_DURATION);
-      block.className = "";
+      block.classList.remove(FLASH);
       await sleep(FLASH_INTERVAL);
     }
 
@@ -76,17 +76,17 @@ class Game {
       if (expected == block) {
         feedbackFlashes.push(
           (async () => {
-            block.className = FLASH_CORRECT;
+            block.classList.add(FLASH_CORRECT);
             await sleep(FEEDBACK_FLASH_DURATION);
-            block.className = "";
+            block.classList.remove(FLASH_CORRECT);
           })(),
         );
       } else {
         feedbackFlashes.push(
           (async () => {
-            block.className = FLASH_INCORRECT;
+            block.classList.add(FLASH_INCORRECT);
             await sleep(FEEDBACK_FLASH_DURATION);
-            block.className = "";
+            block.classList.remove(FLASH_INCORRECT);
           })(),
         );
 
