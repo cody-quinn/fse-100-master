@@ -85,7 +85,7 @@ class Game {
         feedbackFlashes.push(
           (async () => {
             block.classList.add(FLASH_INCORRECT);
-            await sleep(FEEDBACK_FLASH_DURATION);
+            await sleep(FEEDBACK_FLASH_DURATION * 5);
             block.classList.remove(FLASH_INCORRECT);
           })(),
         );
@@ -115,7 +115,6 @@ class Game {
 
   updateLabels() {
     roundElement.innerText = `Round ${this.round}`;
-    statusElement.innerText = "Playing";
   }
 
   // Singleton related activities
@@ -131,9 +130,12 @@ class Game {
       return;
     }
 
+    roundElement.innerText = "";
+    roundElement.style = "visibility: visible !important;"
     Game.instance = new Game();
     startButton.disabled = true;
     await Game.instance.beginGame();
+    roundElement.innerText = "Game Lost!";
     startButton.disabled = false;
   }
 }

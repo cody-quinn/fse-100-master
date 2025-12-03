@@ -3,16 +3,24 @@
     <title>FMS: Simon Says</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/simon/styles.css" />
+    <link rel="preload" href="/fonts/FuturaCyrillicBold.woff" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FuturaCyrillicDemi.woff" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FuturaCyrillicHeavy.woff" as="font" type="font/woff2" crossorigin>
   </head>
   <body>
     <div class="simon-container">
       <div class="simon-header">
         <div class="simon-header-buttons">
           <button id="exit-button">&#x1F3E0;</button>
-          <button id="leaderboard-button">&#x1F3C6;</button>
         </div>
         <h1>Simon Says</h1>
       </div>
+      
+      <div class="status-container">
+        <span id="simon-round">_</span>
+      </div>
+      
+      <span id="simon-status"></span>
 
       <div id="simon-grid">
         <button class="y"></button>
@@ -20,12 +28,12 @@
         <button class="r"></button>
         <button class="b"></button>
       </div>
-      <button id="start-button">
-        Start Game
-      </button>
-
-      <span id="simon-round"></span>
-      <span id="simon-status"></span>
+      
+      <div class="start-button-container">
+        <button id="start-button">
+          Start Game
+        </button>
+      </div>
     </div>
 
     <script src="game.js" lang="javascript"></script>

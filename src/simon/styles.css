@@ -13,15 +13,43 @@
   margin: 0 auto;
 }
 
+#simon-round {
+  visibility: hidden;
+}
+
 .simon-header {
   display: grid;
   grid-template-columns: 100px 1fr 100px;
   text-align: center;
+  font-family: "Futura PT", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
 }
 
 .simon-header-buttons {
   display: flex;
   gap: 4px;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Futura PT", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.start-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+#start-button {
+  width: 240px;
+  height: 80px;
 }
 
 .simon-header-buttons > button {
@@ -44,10 +72,18 @@
   border: solid black 1px;
 }
 
-#simon-grid > .y { background: hsl(var(--block-green-hue), var(--block-sat), var(--block-lum)); }
-#simon-grid > .g { background: hsl(var(--block-red-hue), var(--block-sat), var(--block-lum)); }
-#simon-grid > .r { background: hsl(var(--block-yellow-hue), var(--block-sat), var(--block-lum)); }
-#simon-grid > .b { background: hsl(var(--block-blue-hue), var(--block-sat), var(--block-lum)); }
+#simon-grid > .y {
+  background: hsl(var(--block-green-hue), var(--block-sat), var(--block-lum));
+}
+#simon-grid > .g {
+  background: hsl(var(--block-red-hue), var(--block-sat), var(--block-lum));
+}
+#simon-grid > .r {
+  background: hsl(var(--block-yellow-hue), var(--block-sat), var(--block-lum));
+}
+#simon-grid > .b {
+  background: hsl(var(--block-blue-hue), var(--block-sat), var(--block-lum));
+}
 
 .simon-flash,
 .simon-flash-correct {
@@ -55,5 +91,5 @@
 }
 
 .simon-flash-incorrect {
-  background: red !important;
+  background: rgb(0, 0, 0) !important;
 }
